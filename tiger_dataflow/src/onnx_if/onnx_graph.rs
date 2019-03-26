@@ -2,14 +2,11 @@ use std::fs;
 use std::fs::File;
 use std::io::{BufWriter, Write};
 
-//use onnx_if::onnx_if::ModelProto;
-//use onnx_if::onnx_if::NodeProto;
-//use onnx_if::ModelProto;
-//use onnx_if::NodeProto;
-use crate::onnx_if;
+use crate::onnx_if::onnx::ModelProto;
+use crate::onnx_if::onnx::NodeProto;
 
 #[allow(dead_code)]
-pub fn node_dump(model:&onnx_if::onnx::ModelProto) {
+pub fn node_dump(model:ModelProto) {
 
     let graph = model.get_graph();
     let nodes = graph.get_node();
@@ -19,7 +16,7 @@ pub fn node_dump(model:&onnx_if::onnx::ModelProto) {
     }
 }
 
-pub fn write_dot(model:&onnx_if::onnx::ModelProto, filename:&str) {
+pub fn write_dot(model:&ModelProto, filename:&str) {
     //ファイルを開く
     let fp = fs::File::create(filename).unwrap();
     let mut fb = BufWriter::new(fp);
@@ -59,7 +56,7 @@ pub fn write_dot(model:&onnx_if::onnx::ModelProto, filename:&str) {
     rb(&mut fb);
 }
 
-fn get_model_name(model:&onnx_if::onnx::ModelProto) -> &str {
+fn get_model_name(model:&ModelProto) -> &str {
     model.get_graph().get_name()
 }
 
@@ -91,7 +88,7 @@ fn rb(fb:&mut BufWriter<File>) {
     cr(fb);
 }
 
-fn build_node_name(node:&onnx_if::onnx::NodeProto, op_name:String) -> String {
+fn build_node_name(node:&NodeProto, op_name:String) -> String {
     let op_type = node.get_op_type();
     format!("{}_{}", op_name, op_type)
 }

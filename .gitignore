@@ -2,5 +2,4 @@
 data
 tiger_dataflow/target/
 tiger_dataflow/cargo.lock
-output/graph.png
-output/sq.dot
+output
