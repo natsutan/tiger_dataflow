@@ -5,3 +5,5 @@ authors = ["natsutan <YRW03704@nifty.com>"]
 edition = "2018"
 
 [dependencies]
+protobuf = { version = "~2.0", features = ["with-bytes"] }
+petgraph = "*"
